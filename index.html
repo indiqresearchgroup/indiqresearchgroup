@@ -63,6 +63,7 @@ h1, h2, h3 {
     line-height: 1.15;
     margin: 0 0 .5em;
     letter-spacing: -.02em;
+    overflow-wrap: break-word;
 }
 
 h1 {
@@ -448,12 +449,14 @@ nav a.cta:hover {
     border-radius: 18px;
     padding: 22px;
     text-align: center;
+    min-width: 0;
 }
 
 .stat b {
     display: block;
-    font: 800 2rem 'Sora',sans-serif;
+    font: 800 clamp(1.2rem, 4.2vw, 2rem) 'Sora', sans-serif;
     color: var(--pri);
+    overflow-wrap: anywhere;
 }
 
 .stat span {
@@ -461,8 +464,10 @@ nav a.cta:hover {
     font-size: .92rem;
 }
 
+/* Only top/bottom padding so .wrap keeps its 20px side gutters */
 .sec {
-    padding: 72px 0;
+    padding-top: 72px;
+    padding-bottom: 72px;
 }
 
 .grid {
@@ -477,6 +482,7 @@ nav a.cta:hover {
     border-radius: 20px;
     padding: 24px;
     transition: transform .25s,border-color .25s;
+    min-width: 0;
 }
 
 .card:hover {
@@ -555,8 +561,10 @@ nav a.cta:hover {
     }
 }
 
+/* Only top/bottom padding so .wrap keeps its 20px side gutters */
 .ph {
-    padding: 56px 0 20px;
+    padding-top: 56px;
+    padding-bottom: 20px;
 }
 
 /* =====================================
@@ -618,6 +626,7 @@ button:focus-visible {
     border: 1px solid var(--teal);
     border-radius: 12px;
     padding: 14px;
+    overflow-wrap: anywhere;
 }
 
 .field-error {
@@ -642,6 +651,7 @@ textarea.invalid {
     border-radius: 14px;
     padding: 16px 18px;
     margin-bottom: 12px;
+    overflow-wrap: anywhere;
 }
 
 .chip b {
@@ -675,6 +685,59 @@ footer .wrap {
     .rv {
         opacity: 1;
         transform: none;
+    }
+}
+
+/* =====================================
+   SMALL-SCREEN SPACING AND OVERFLOW FIXES
+===================================== */
+
+@media (max-width: 560px) {
+
+    /* Keep a gutter on both sides, more on phones with a notch */
+    .wrap {
+        padding-left: max(20px, env(safe-area-inset-left, 0px));
+        padding-right: max(20px, env(safe-area-inset-right, 0px));
+    }
+
+    /* Stat cards stack so CATI·CAPI·PAPI gets the full width */
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        padding: 18px 16px;
+    }
+
+    /* About page mission/vision cards stack instead of squeezing */
+    .grid[style*="1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    .band {
+        padding: 36px 20px;
+        border-radius: 22px;
+    }
+
+    .hero {
+        padding: 36px 0 56px;
+    }
+
+    .sec {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    footer .wrap {
+        flex-direction: column;
     }
 }
 </style>
